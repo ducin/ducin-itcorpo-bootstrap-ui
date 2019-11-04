@@ -10,7 +10,7 @@ window.jQuery = window.$ = $
 // bootstrap
 import 'bootstrap'
 
-import 'bootstrap-autocomplete/dist/latest/bootstrap-autocomplete'
+import './lib/bootstrap-autocomplete/dist/latest/bootstrap-autocomplete'
 
 // import 'bootstrap-autocomplete'
 

@@ -9,7 +9,6 @@
     "@types/bootstrap": "^4.3.1",
     "@types/jquery": "^3.3.31",
     "bootstrap": "^4.3.1",
-    "bootstrap-autocomplete": "https://github.com/xcash/bootstrap-autocomplete",
     "jquery": "^3.4.1",
     "navigo": "^7.1.2",
     "parcel": "^1.12.4",
