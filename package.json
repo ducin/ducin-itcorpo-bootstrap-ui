@@ -1,5 +1,5 @@
 {
-  "name": "typescript",
+  "name": "ducin-itcorpo-bootstrap-ui",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -14,5 +14,8 @@
     "navigo": "^7.1.2",
     "parcel": "^1.12.4",
     "popper.js": "^1.14.7"
+  },
+  "devDependencies": {
+    "typescript": "^3.6.4"
   }
 }

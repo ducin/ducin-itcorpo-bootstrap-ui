@@ -7,7 +7,7 @@ export class AutoComplete {
 
   bind(): void {
     const $el = $(this.el);
-    
+
     $('.complex').autoComplete({
       resolver: 'custom',
       formatResult: function(item){
@@ -44,6 +44,6 @@ export class AutoComplete {
 </div>
 `
 
-    // this.bind()
+    this.bind()
   }
 }

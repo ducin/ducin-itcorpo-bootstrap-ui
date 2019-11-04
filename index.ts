@@ -1,12 +1,16 @@
 // Import stylesheets
-import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './style.css';
 
 // jquery is required for bootstrap
 import $ from 'jquery'
+// @ts-ignore
+window.jQuery = window.$ = $
 
 // bootstrap
 import 'bootstrap'
+
+import 'bootstrap-autocomplete/dist/latest/bootstrap-autocomplete'
 
 // import 'bootstrap-autocomplete'
 
