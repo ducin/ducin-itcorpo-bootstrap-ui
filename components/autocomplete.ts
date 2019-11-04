@@ -44,6 +44,6 @@ export class AutoComplete {
 </div>
 `
 
-    this.bind()
+    // this.bind()
   }
 }
