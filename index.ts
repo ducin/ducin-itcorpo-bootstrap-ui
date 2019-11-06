@@ -17,13 +17,14 @@ import './lib/bootstrap-autocomplete/dist/latest/bootstrap-autocomplete'
 import {
   mainTpl,
   employeesPage,
-  projectsTpl,
-  benefitsTpl,
+  projectsPage,
+  benefitsPage,
 } from './templates'
 import {
   Pagination,
   AutoComplete,
   Table,
+  List,
   Form,
 } from './components'
 
@@ -35,7 +36,7 @@ const main: HTMLElement = document.getElementById('main');
 import Navigo from 'navigo'
 
 var root = null;
-var useHash = true; // Defaults to: false
+var useHash = false; // Defaults to: false
 var hash = '#!'; // Defaults to: '#'
 var router = new Navigo(root, useHash, hash);
 
@@ -51,25 +52,44 @@ router
       const form = new Form(el.form)
 
       const table = new Table(el.content)
-      table.columns = ['elo', 'mordo', 'ładna']
+      table.columns = ['kolumna A', 'kolumna B', 'kolumna C']
       table.items = [
-        ['elo1', 'mordo1', 'ładna1'],
-        ['elo2', 'mordo2', 'ładna2'],
-        ['elo3', 'mordo3', 'ładna3'],
+        ['456', '5874567', '345'],
+        ['5467', '234523', '43567456'],
+        ['24356', '34523', '234523'],
       ]
 
       const pagination = new Pagination(el.pagination)
       pagination.pages = [1,2,3,4]
     },
     'projects': function () {
-      main.innerHTML = projectsTpl()
+      const { getTemplate, getElements } = projectsPage()
+      main.innerHTML = getTemplate()
+      const el = getElements(main)
+
+      const list = new List(el.content)
+      list.header = 'Projekty'
+      list.items = [
+        'robota po godzinach - Jan Kowalski',
+        'smaczne naleśniki - Andrzej Nowak',
+        'usługi księgowe - Krystyna Sochacka',
+      ]
     },
     'benefits': function () {
-      main.innerHTML = benefitsTpl()
+      const { getTemplate, getElements } = benefitsPage()
+      main.innerHTML = getTemplate()
+      const el = getElements(main)
+
+      const list = new List(el.content)
+      list.header = 'Benefity pracownicze'
+      list.items = [
+        'multi sport',
+        'bony centrum handlowe',
+        'bony biedronka',
+      ]
     },
-    '': function () {
+    '*': function () {
       main.innerHTML = mainTpl()
-      // const autocomplete = new AutoComplete(paginationEl)
     }
   })
   .resolve();
