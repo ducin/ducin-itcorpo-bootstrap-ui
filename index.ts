@@ -34,6 +34,7 @@ const main: HTMLElement = document.getElementById('main');
 // ROUTING
 // https://github.com/krasimir/navigo
 import Navigo from 'navigo'
+import { getProjects } from './api';
 
 var root = null;
 var useHash = false; // Defaults to: false
@@ -73,7 +74,12 @@ router
         'robota po godzinach - Jan Kowalski',
         'smaczne naleśniki - Andrzej Nowak',
         'usługi księgowe - Krystyna Sochacka',
-      ]
+      ];
+
+      getProjects()
+        .then(projects => {
+          list.items = projects.map(p => p.name)
+        })
     },
     'benefits': function () {
       const { getTemplate, getElements } = benefitsPage()
