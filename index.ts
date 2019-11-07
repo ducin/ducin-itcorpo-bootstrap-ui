@@ -34,7 +34,7 @@ const main: HTMLElement = document.getElementById('main');
 // ROUTING
 // https://github.com/krasimir/navigo
 import Navigo from 'navigo'
-import { getProjects } from './api';
+import { getProjects, generateReport, GenerateReportCommand } from './api';
 
 var root = null;
 var useHash = false; // Defaults to: false
@@ -80,6 +80,14 @@ router
         .then(projects => {
           list.items = projects.map(p => p.name)
         })
+      
+      const exampleCommand: GenerateReportCommand = {
+        id: '345-2345-345',
+        extention: "pdf",
+        type: "project",
+        scheduledAt: (new Date()).toISOString()
+      }
+      generateReport(exampleCommand)
     },
     'benefits': function () {
       const { getTemplate, getElements } = benefitsPage()

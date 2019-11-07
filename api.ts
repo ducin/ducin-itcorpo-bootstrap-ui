@@ -21,3 +21,16 @@ export const getProjects = async () => {
     (`${API_URL}/projects/`)
   return response.data
 }
+
+export type GenerateReportCommand = {
+  id: string
+  extention: "pdf"
+  type: "project"
+  scheduledAt: string
+}
+
+export const generateReport = async (payload: GenerateReportCommand) => {
+  const response = await axios.post
+    (`${API_URL}/reports`, payload)
+  return response.data
+}
