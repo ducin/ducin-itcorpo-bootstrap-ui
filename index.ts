@@ -82,7 +82,7 @@ router
         })
       
       const exampleCommand: GenerateReportCommand = {
-        id: '345-2345-345',
+        id: '731f8760-f251-4d9f-93d6-0bbe27fe3377',
         extention: "pdf",
         type: "project",
         scheduledAt: (new Date()).toISOString()
