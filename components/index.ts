@@ -1,5 +1,6 @@
 export * from './autocomplete'
 export * from './form'
 export * from './list'
+export * from './projects-list'
 export * from './pagination'
 export * from './table'

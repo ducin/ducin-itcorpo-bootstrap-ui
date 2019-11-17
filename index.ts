@@ -14,6 +14,13 @@ import './lib/bootstrap-autocomplete/dist/latest/bootstrap-autocomplete'
 
 // import 'bootstrap-autocomplete'
 
+// Write TypeScript code!
+const main: HTMLElement = document.getElementById('main');
+
+// ROUTING
+// https://github.com/krasimir/navigo
+import Navigo from 'navigo'
+
 import {
   mainTpl,
   employeesPage,
@@ -25,16 +32,20 @@ import {
   AutoComplete,
   Table,
   List,
+  ProjectsList,
   Form,
 } from './components'
 
-// Write TypeScript code!
-const main: HTMLElement = document.getElementById('main');
-
-// ROUTING
-// https://github.com/krasimir/navigo
-import Navigo from 'navigo'
-import { getProjects, generateReport, GenerateReportCommand } from './api';
+import {
+  getProjects,
+  generateReport,
+  createGenerateReportCommand,
+  getReport,
+  getReportFileURL,
+  Report
+} from './api';
+import { waitUntil } from './time'
+import { downloadFile } from './utils'
 
 var root = null;
 var useHash = false; // Defaults to: false
@@ -68,26 +79,46 @@ router
       main.innerHTML = getTemplate()
       const el = getElements(main)
 
-      const list = new List(el.content)
+      const handleGenerate = async (id: string) => {
+        const command = createGenerateReportCommand(id)
+        const scheduledReport = await generateReport(command)
+        console.log(`scheduled: ${scheduledReport.id}`)
+        let report: Report
+
+        await waitUntil(async () => {
+          report = await getReport(scheduledReport.id)
+          console.log("CURRENT REPORT",
+            report.ready ? 'finished' : 'unfinished',
+            report)
+          return report.ready
+        }, 1000)
+
+        // at this point, the report is ready
+        downloadFile(getReportFileURL(report.id), report.filename)
+      }
+      const list = new ProjectsList(el.content, handleGenerate)
       list.header = 'Projekty'
       list.items = [
-        'robota po godzinach - Jan Kowalski',
-        'smaczne naleśniki - Andrzej Nowak',
-        'usługi księgowe - Krystyna Sochacka',
+        {
+          id: 'wevyeu6-cw3y537-f3h6c3-6hjf45',
+          label: 'robota po godzinach - Jan Kowalski'
+        },
+        {
+          id: 'ev57jn-yn-35cy3dn3f5yb-35dfh356-hfg35',
+          label: 'smaczne naleśniki - Andrzej Nowak'
+        },
+        {
+          id: 'w4fy35h6-35h3f56h3-s245hdg4fjy-f5yh',
+          label: 'usługi księgowe - Krystyna Sochacka'
+        }
       ];
 
       getProjects()
         .then(projects => {
-          list.items = projects.map(p => p.name)
+          list.items = projects.map(({ id, name }) => ({
+            id, label: name
+          }))
         })
-      
-      const exampleCommand: GenerateReportCommand = {
-        id: '731f8760-f251-4d9f-93d6-0bbe27fe3377',
-        extention: "pdf",
-        type: "project",
-        scheduledAt: (new Date()).toISOString()
-      }
-      generateReport(exampleCommand)
     },
     'benefits': function () {
       const { getTemplate, getElements } = benefitsPage()
